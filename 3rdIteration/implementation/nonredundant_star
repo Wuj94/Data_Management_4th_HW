@@ -1,0 +1,117 @@
+################### MY sql script
+DROP DATABASE IF EXISTS star_general;
+USE star_general;
+
+CREATE TABLE  IF NOT EXISTS SaleDao(
+	customer_pk int,
+	employee_pk int,
+	product_pk int,
+	branch_pk int,
+	detail_pk int,
+	price decimal(4,2),
+	PRIMARY KEY(customer_pk, employee_pk, product_pk, branch_pk, detail_pk)
+)
+
+
+CREATE TABLE customer IF NOT EXISTS(
+	customer_pk int AUTO_INCREMENT PRIMARY KEY,
+	marital_status varchar(8), # Married, Single, Divorced, Widowed
+	nationality varchar(14),
+	card_id int(8),
+	country varchar(20),
+	SSN int(9),
+	info_fk int NOT NULL,
+	country_fk int NOT NULL,
+	card_fk int NOT NULL,
+	FOREIGN KEY(info_fk) REFERENCES customer_info(info_pk),
+	FOREIGN KEY(country_fk) REFERENCES customer_countr(country_pk),
+	FOREIGN KEY(card_fk) REFERENCES customer_card(card_pk)
+)
+
+CREATE TABLE customer_info IF NOT EXISTS(
+	info_pk int AUTO_INCREMENT PRIMAY KEY,
+	first_name varchar(20),
+	last_name varchar(20),
+	phone varchar(20),
+	email varchar(40),
+	gender char(1), # M:male, F:famale, U:unknown
+	DOB date
+
+)
+
+CREATE TABLE customer_country IF NOT EXISTS(
+	country_pk int AUTO_INCREMENT PRIMARY KEY,
+	country varchar(20),
+	city varchar(22),
+	street varchar(40),
+	building int(2)	
+)
+
+CREATE TABLE customer_card IF NOT EXISTS(
+	card_pk int AUTO_INCREMENT PRIMARY KEY,
+	card_id int(8),
+	loyalty varchar(6),
+	points int(10)
+)
+
+CREATE TABLE detail_group IF NOT EXISTS(
+	detail_group_pk int AUTO_INCREMENT PRIMARY_KEY
+)
+
+CREATE TABLE detail_bridge IF NOT EXISTS(
+	detail_group_fk int,
+	FOREIGN KEY(detail_group_fk) REFERENCES detail_group(detail_group_pk)
+	detail_fk int,
+	FOREIGN KEY(detail_fk) REFERENCES detail(detail_pk),
+	weight_factor decimal(2,2)
+)
+
+CREATE TABLE detail IF NOT EXISTS(
+	detail_pk int AUTO_INCREMENT PRIMARY KEY,
+	quantity int(8),
+	belonging_invoice (20),
+	discount decimal(2,2),
+	
+)
+
+CREATE TABLE employee IF NOT EXISTS(
+	employee_pk int AUTO_INCREMENT PRIMARY KEY,
+	first_name varchar(20),
+	second_name varchar(20),
+	last_name varchar(20),
+	branch_fk int NOT NULL,
+	FOREIGN KEY branch_fk REFERENCES branch(branch_pk) 
+)
+
+CREATE TABLE product_group IF NOT EXISTS(
+	product_group_pk int PRIMARY KEY
+)
+
+CREATE TABLE product_bridge(
+	product_group_fk int,
+	FOREIGN KEY(product_group_fk) REFERENCES product_group(product_group_pk)
+	product_fk int,
+	FOREIGN KEY(product_fk) REFERENCES product(product_pk),
+	weight_factor decimal(2,2)
+	
+)
+
+CREATE TABLE product IF NOT EXISTS(
+	product_pk int AUTO_INCREMENT PRIMARY KEY,
+	brand varchar(20) UNIQUE,
+	manufacturer varchar(20),
+	department varchar(20),
+	FOREIGN KEY(department) REFERENCES product_department(department_pk)
+)
+
+CREATE TABLE product_department IF NOT EXISTS(
+	deptartment_pk int AUTO_INCREMENT PRIMARY KEY,
+	department varchar(20) UNIQUE
+	category varchar(20)	
+)
+
+CREATE TABLE branch IF NOT EXISTS(
+	branch_pk int AUTO_INCREMENT PRIMARY KEY,
+	branch_name varchar(20) UNIQUE
+)
+
