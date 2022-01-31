@@ -14,5 +14,5 @@ The work has been partially validated by the professor,
 but it was not always the case.
 
 I look forward to use a more robust implementation of the before-validated 
-architecture. If you want to collaborate, just contact me.
+architecture. If you want to collaborate, just contact me. (Not really eh-eh)
 
