@@ -10,9 +10,4 @@ The author of the work is just myself, and I supposed this deployment environmen
     A Workbench-generated .sql for mysql DBMS.
 
 Basically, the work done was split in 3 iteration:
-The work has been partially validated by the professor,
-but it was not always the case.
-
-I look forward to use a more robust implementation of the before-validated 
-architecture. If you want to collaborate, just contact me. (Not really eh-eh)
-
+The work has been partially validated by the lecturer, but it was not always the case.
